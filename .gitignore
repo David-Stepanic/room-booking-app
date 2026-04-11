@@ -1,0 +1,40 @@
+# ===== Maven =====
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# ===== Java =====
+*.class
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Spring Boot =====
+application.properties
+application.yml
+
+# ===== Env files (secrets) =====
+.env
+
+# ===== Build outputs =====
+out/
+
+# ===== Temporary files =====
+*.tmp
