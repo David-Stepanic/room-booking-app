@@ -4,7 +4,7 @@
  */
 package com.example.RoomReservation.model;
 
-import com.example.RoomReservation.model.constans.RoomStatus;
+import com.example.RoomReservation.model.constans.RoomType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,10 +28,12 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int roomNumber;
     private int capacity;
+
     @Enumerated(EnumType.STRING)
-    private RoomStatus roomStatus;
+    private RoomType roomType;
 
     @OneToMany(mappedBy = "room")
     private List<Reservation> reservations = new ArrayList<>();
@@ -39,9 +41,10 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "roomNumber=" + roomNumber +
+                "id=" + id +
+                ", roomNumber=" + roomNumber +
                 ", capacity=" + capacity +
-                ", roomStatus=" + roomStatus +
+                ", roomType=" + roomType +
                 ", reservations=" + reservations +
                 '}';
     }

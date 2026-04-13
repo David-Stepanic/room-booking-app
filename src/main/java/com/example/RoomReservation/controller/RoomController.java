@@ -1,5 +1,7 @@
 package com.example.RoomReservation.controller;
 
+import com.example.RoomReservation.dto.room.RoomRequest;
+import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.model.Room;
 import com.example.RoomReservation.service.RoomService;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +19,17 @@ public class RoomController {
     }
 
     @GetMapping()
-    public List<Room> getRooms() {
-        return roomService.getRooms();
+    public List<RoomResponse> getAllRooms() {
+        return roomService.getAllRooms();
     }
 
     @GetMapping("/{id}")
-    public Room getRoom(@PathVariable Long id) {
-        return roomService.getRoom(id);
+    public RoomResponse getRoomById(@PathVariable Long id) {
+        return roomService.getRoomById(id);
     }
 
     @PostMapping()
-    public Room createRoom(@RequestBody Room room) {
+    public RoomResponse createRoom(@RequestBody RoomRequest room) {
         return roomService.createRoom(room);
     }
 

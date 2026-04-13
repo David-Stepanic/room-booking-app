@@ -1,7 +1,9 @@
 package com.example.RoomReservation.service;
 
-import org.springframework.stereotype.Service;
+import com.example.RoomReservation.dto.reservation.ReservationRequest;
+import com.example.RoomReservation.dto.reservation.ReservationResponse;
+import com.example.RoomReservation.model.Reservation;
 
-@Service
-public class ReservationService {
+public interface ReservationService{
+    ReservationResponse createReservation(ReservationRequest request);
 }

@@ -5,10 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class RoomResponse {
-    private Long id;
+public class RoomRequest {
     private int roomNumber;
     private int capacity;
     private RoomType roomType;

@@ -5,8 +5,8 @@
 package com.example.RoomReservation.model;
 
 import com.example.RoomReservation.model.constans.ReservationStatus;
-import com.example.RoomReservation.model.constans.ReservationType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,21 +31,18 @@ public class Reservation {
     private String purpose;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private ReservationType reservationType;
     private ReservationStatus reservationStatus;
     private LocalDateTime createdAt;
     private LocalDateTime decisionMadeAt;
-    private boolean isApproved;
     private String declinedReason;
     @ManyToOne
     private User user;
     @ManyToOne
     private Room room;
 
-    public Reservation(String name, String purpose, boolean isApproved, User user, Room room) {
+    public Reservation(String name, String purpose, User user, Room room) {
         this.name = name;
         this.purpose = purpose;
-        this.isApproved = isApproved;
         this.user = user;
         this.room = room;
     }

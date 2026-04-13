@@ -1,6 +1,7 @@
 package com.example.RoomReservation.service.auth;
 
 import com.example.RoomReservation.model.User;
+import com.example.RoomReservation.model.constans.Role;
 import com.example.RoomReservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,7 @@ public class AuthService {
 
     public User register(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setRole("USER");
+        user.setRole(Role.USER);
         return repo.save(user);
     }
 
