@@ -2,7 +2,6 @@ package com.example.RoomReservation.service.impl;
 
 import com.example.RoomReservation.dto.reservation.ReservationRequest;
 import com.example.RoomReservation.dto.reservation.ReservationResponse;
-import com.example.RoomReservation.model.Reservation;
 import com.example.RoomReservation.model.Room;
 import com.example.RoomReservation.model.User;
 import com.example.RoomReservation.repository.ReservationRepository;
@@ -32,7 +31,7 @@ public class ReservationServiceImpl implements ReservationService {
         Optional<User> user = userRepository.findById(request.getUserId());
         Optional<Room> room = roomRepository.findById(request.getRoomId());
 
-
+        // TODO: Rooms are created so just continue with reservation implementation
 
 
         return null;

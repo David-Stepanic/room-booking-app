@@ -2,12 +2,14 @@ package com.example.RoomReservation.service.impl;
 
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
+import com.example.RoomReservation.exception.InvalidDateRangeException;
 import com.example.RoomReservation.mapper.RoomMapper;
 import com.example.RoomReservation.model.Room;
 import com.example.RoomReservation.repository.RoomRepository;
 import com.example.RoomReservation.service.RoomService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,6 +25,18 @@ public class RoomServiceImpl implements RoomService {
 
     public List<RoomResponse> getAllRooms() {
         return repository.findAll()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public List<RoomResponse> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime) {
+
+        if (startTime.isAfter(endTime))
+            throw new InvalidDateRangeException("Invalid range, startTime must be before endTime!");
+
+        return repository.findAvailableRooms(startTime, endTime)
                 .stream()
                 .map(mapper::toResponse)
                 .toList();
