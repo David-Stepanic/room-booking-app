@@ -1,4 +1,4 @@
-package com.example.RoomReservation.exception;
+package com.example.RoomReservation.exception.custom;
 
 public class InvalidDateRangeException extends RuntimeException {
 
