@@ -12,6 +12,5 @@ public interface RoomMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "reservations", ignore = true)
     Room toEntity(RoomRequest request);
-
     RoomResponse toResponse(Room room);
 }

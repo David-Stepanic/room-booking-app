@@ -1,5 +1,7 @@
 package com.example.RoomReservation.dto.reservation;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationRequest {
-    private Long userId;
+    @NotNull(message = "Room is required")
     private Long roomId;
+
+    @NotBlank(message = "Title is required")
+    private String title;
+
+    @NotNull(message = "Start time is required")
     private LocalDateTime startTime;
+
+    @NotNull(message = "End time is required")
     private LocalDateTime endTime;
 }

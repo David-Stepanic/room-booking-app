@@ -3,10 +3,11 @@ package com.example.RoomReservation.controller;
 import com.example.RoomReservation.dto.reservation.ReservationRequest;
 import com.example.RoomReservation.dto.reservation.ReservationResponse;
 import com.example.RoomReservation.service.ReservationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -18,9 +19,19 @@ public class ReservationController {
         this.service = reservationService;
     }
 
-    @PostMapping("/create")
-    public ReservationResponse createReservation(@RequestBody ReservationRequest request) {
-        return service.createReservation(request);
+    @PostMapping("/make")
+    public ReservationResponse createReservation(
+            @Valid @RequestBody ReservationRequest request,
+            Authentication authentication) {
+
+        String username = authentication.getName();
+
+        return service.createReservation(request, username);
+    }
+
+    @GetMapping()
+    public List<ReservationResponse> getAllReservations() {
+        return service.getAllReservations();
     }
 
 }

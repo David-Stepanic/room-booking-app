@@ -1,7 +1,6 @@
 package com.example.RoomReservation.repository;
 
 import com.example.RoomReservation.model.Room;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +12,6 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    @Transactional
     @Query("""
                 SELECT r FROM Room r
                 WHERE NOT EXISTS (

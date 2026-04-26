@@ -2,7 +2,7 @@ package com.example.RoomReservation.service.impl;
 
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
-import com.example.RoomReservation.exception.InvalidDateRangeException;
+import com.example.RoomReservation.exception.custom.InvalidDateRangeException;
 import com.example.RoomReservation.mapper.RoomMapper;
 import com.example.RoomReservation.model.Room;
 import com.example.RoomReservation.repository.RoomRepository;
@@ -15,16 +15,16 @@ import java.util.List;
 @Service
 public class RoomServiceImpl implements RoomService {
 
-    private final RoomRepository repository;
+    private final RoomRepository roomRepository;
     private final RoomMapper mapper;
 
     public RoomServiceImpl(RoomRepository repository, RoomMapper mapper) {
-        this.repository = repository;
+        this.roomRepository = repository;
         this.mapper = mapper;
     }
 
     public List<RoomResponse> getAllRooms() {
-        return repository.findAll()
+        return roomRepository.findAll()
                 .stream()
                 .map(mapper::toResponse)
                 .toList();
@@ -36,7 +36,7 @@ public class RoomServiceImpl implements RoomService {
         if (startTime.isAfter(endTime))
             throw new InvalidDateRangeException("Invalid range, startTime must be before endTime!");
 
-        return repository.findAvailableRooms(startTime, endTime)
+        return roomRepository.findAvailableRooms(startTime, endTime)
                 .stream()
                 .map(mapper::toResponse)
                 .toList();
@@ -44,22 +44,20 @@ public class RoomServiceImpl implements RoomService {
 
     public RoomResponse createRoom(RoomRequest request) {
         Room room = mapper.toEntity(request);
-        Room dbRoom = repository.save(room);
-
+        Room dbRoom = roomRepository.save(room);
         return mapper.toResponse(dbRoom);
     }
 
     public RoomResponse getRoomById(Long id) {
-        Room room = repository.findById(id)
+        Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room does not exist!"));
         return mapper.toResponse(room);
     }
 
     public void deleteRoom(Long id) {
-        Room room = repository.findById(id)
+        Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found!"));
-
-        repository.delete(room);
+        roomRepository.delete(room);
     }
 
 }
