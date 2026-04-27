@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoomResponse {
     private Long id;
-    private int roomNumber;
-    private int capacity;
+    private Integer roomNumber;
+    private Integer capacity;
     private RoomType roomType;
 }

@@ -18,4 +18,5 @@ public interface RoomService {
 
     void deleteRoom(Long id);
 
+    RoomResponse editRoom(RoomRequest req, Long id);
 }

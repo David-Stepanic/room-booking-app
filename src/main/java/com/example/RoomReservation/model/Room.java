@@ -4,12 +4,12 @@
  */
 package com.example.RoomReservation.model;
 
+import com.example.RoomReservation.exception.custom.RoomException;
 import com.example.RoomReservation.model.constans.RoomType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -45,5 +44,23 @@ public class Room {
                 ", roomType=" + roomType +
                 ", reservations=" + reservations +
                 '}';
+    }
+
+    public void updateCapacity(int capacity) {
+        if (capacity <= 0) {
+            throw new RoomException("Capacity must be greater than 0");
+        }
+        this.capacity = capacity;
+    }
+
+    public void updateRoomNumber(int roomNumber) {
+        if (roomNumber <= 0) {
+            throw new RoomException("Room number must be positive");
+        }
+        this.roomNumber = roomNumber;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 }

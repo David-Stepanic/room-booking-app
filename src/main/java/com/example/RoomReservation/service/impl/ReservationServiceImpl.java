@@ -2,9 +2,9 @@ package com.example.RoomReservation.service.impl;
 
 import com.example.RoomReservation.dto.reservation.ReservationRequest;
 import com.example.RoomReservation.dto.reservation.ReservationResponse;
-import com.example.RoomReservation.exception.custom.InvalidDateRangeException;
-import com.example.RoomReservation.exception.custom.ReservationExistsException;
-import com.example.RoomReservation.exception.custom.RoomNotFoundException;
+import com.example.RoomReservation.exception.custom.ReservationException;
+import com.example.RoomReservation.exception.custom.ReservationNotFoundException;
+import com.example.RoomReservation.exception.custom.RoomException;
 import com.example.RoomReservation.mapper.ReservationMapper;
 import com.example.RoomReservation.model.Reservation;
 import com.example.RoomReservation.model.Room;
@@ -17,7 +17,6 @@ import com.example.RoomReservation.service.ReservationService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,17 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationResponse createReservation(ReservationRequest request, String username) {
 
-        if (request.getStartTime().isAfter(request.getEndTime()))
-            throw new InvalidDateRangeException("Start time must be before end time!");
-
-        if (request.getStartTime().isBefore(LocalDateTime.now()))
-            throw new InvalidDateRangeException("Start time cannot be in past!");
-
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found!"));
 
         Room room = roomRepository.findById(request.getRoomId())
-                .orElseThrow(() -> new RoomNotFoundException("Room not found!"));
+                .orElseThrow(() -> new RoomException("Room not found!"));
 
         boolean isTaken = reservationRepository.reservationExists(
                 room.getId(),
@@ -57,7 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
         );
 
         if(isTaken) {
-            throw new ReservationExistsException("Room is already reserved in this time range");
+            throw new ReservationException("Room is already reserved in this time range");
         }
 
         Reservation reservation = new Reservation();
@@ -65,8 +58,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setUser(user);
         reservation.setRoom(room);
         reservation.setPurpose(resolvePurpose(room.getRoomType()));
-        reservation.setStartTime(request.getStartTime());
-        reservation.setEndTime(request.getEndTime());
+        reservation.schedule(request.getStartTime(), request.getEndTime());
 
         reservationRepository.save(reservation);
 
@@ -88,5 +80,38 @@ public class ReservationServiceImpl implements ReservationService {
             case COMPUTER_CENTER -> "Laboratory space designed for practical work, experiments, and group activities";
             case AMPHITHEATER -> "Large presentation hall suitable for lectures, conferences, and public speaking events";
         };
+    }
+
+    @Override
+    public void confirmReservation(Long id) {
+        Reservation reservation = getReservationOrThrow(id);
+        reservation.confirm();
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void cancelReservation(Long id) {
+        Reservation reservation = getReservationOrThrow(id);
+        reservation.cancel();
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void declineReservation(Long id) {
+        Reservation reservation = getReservationOrThrow(id);
+        reservation.decline("Not enough attendees");
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void deleteReservation(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found"));
+        reservationRepository.delete(reservation);
+    }
+
+    private Reservation getReservationOrThrow(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation does not exist!"));
     }
 }

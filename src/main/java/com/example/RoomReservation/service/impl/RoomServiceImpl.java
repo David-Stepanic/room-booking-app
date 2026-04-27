@@ -3,6 +3,7 @@ package com.example.RoomReservation.service.impl;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.exception.custom.InvalidDateRangeException;
+import com.example.RoomReservation.exception.custom.RoomNotFoundException;
 import com.example.RoomReservation.mapper.RoomMapper;
 import com.example.RoomReservation.model.Room;
 import com.example.RoomReservation.repository.RoomRepository;
@@ -44,20 +45,40 @@ public class RoomServiceImpl implements RoomService {
 
     public RoomResponse createRoom(RoomRequest request) {
         Room room = mapper.toEntity(request);
-        Room dbRoom = roomRepository.save(room);
-        return mapper.toResponse(dbRoom);
+
+        room.updateCapacity(request.getCapacity());
+        room.updateRoomNumber(request.getRoomNumber());
+
+        roomRepository.save(room);
+        return mapper.toResponse(room);
     }
 
     public RoomResponse getRoomById(Long id) {
         Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Room does not exist!"));
+                .orElseThrow(() -> new RoomNotFoundException("Room does not exist!"));
         return mapper.toResponse(room);
     }
 
     public void deleteRoom(Long id) {
         Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Room not found!"));
+                .orElseThrow(() -> new RoomNotFoundException("Room not found!"));
         roomRepository.delete(room);
+    }
+
+    @Override
+    public RoomResponse editRoom(RoomRequest req, Long id) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new RoomNotFoundException("Room not found!"));
+        if (req.getRoomType() != null)
+            room.setRoomType(req.getRoomType());
+        if (req.getRoomNumber() != null)
+            room.updateRoomNumber(req.getRoomNumber());
+        if (req.getCapacity() != null) {
+            room.updateCapacity(req.getCapacity());
+        }
+        roomRepository.save(room);
+
+        return mapper.toResponse(room);
     }
 
 }

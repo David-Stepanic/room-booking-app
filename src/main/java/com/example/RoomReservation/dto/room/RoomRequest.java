@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoomRequest {
-    private int roomNumber;
-    private int capacity;
+    private Integer roomNumber;
+    private Integer capacity;
     private RoomType roomType;
 }

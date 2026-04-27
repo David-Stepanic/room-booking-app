@@ -3,6 +3,8 @@ package com.example.RoomReservation.controller;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.service.RoomService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,21 +32,29 @@ public class RoomController {
         return roomService.getAvailableRooms(startTime, endTime);
     }
 
-
     @GetMapping("/{id}")
     public RoomResponse getRoomById(@PathVariable Long id) {
         return roomService.getRoomById(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping()
     public RoomResponse createRoom(@RequestBody RoomRequest room) {
         return roomService.createRoom(room);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteRoom(@PathVariable Long id) {
+    public ResponseEntity<?> deleteRoom(@PathVariable Long id) {
         roomService.deleteRoom(id);
+        return ResponseEntity.ok("Room deleted successfully!");
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PatchMapping("/{id}")
+    public RoomResponse editRoom(@RequestBody RoomRequest req,
+                                 @PathVariable Long id) {
+        return roomService.editRoom(req, id);
+    }
 
 }
