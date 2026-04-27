@@ -1,8 +1,6 @@
 package com.example.RoomReservation.exception;
 
-import com.example.RoomReservation.exception.custom.InvalidDateRangeException;
-import com.example.RoomReservation.exception.custom.ReservationExistsException;
-import com.example.RoomReservation.exception.custom.RoomNotFoundException;
+import com.example.RoomReservation.exception.custom.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -49,8 +47,32 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
+    @ExceptionHandler(RoomException.class)
+    public ResponseEntity<ErrorResponse> handleRoomException(RoomException ex) {
+
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                400,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
     @ExceptionHandler(RoomNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleRoomNotFound(RoomNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleRoomNotFound(RoomException ex) {
+
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                404,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(ReservationException.class)
+    public ResponseEntity<ErrorResponse> handleReservationException(ReservationException ex) {
 
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
@@ -61,17 +83,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
-    @ExceptionHandler(ReservationExistsException.class)
-    public ResponseEntity<ErrorResponse> handleReservationExists(ReservationExistsException ex) {
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleReservationNotFound(ReservationException ex) {
 
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
-                400,
+                404,
                 LocalDateTime.now()
         );
 
         return ResponseEntity.badRequest().body(error);
     }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
