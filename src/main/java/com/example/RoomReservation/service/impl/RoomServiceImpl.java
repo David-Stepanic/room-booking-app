@@ -1,5 +1,6 @@
 package com.example.RoomReservation.service.impl;
 
+import com.example.RoomReservation.dto.room.RoomPatchRequest;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.exception.custom.InvalidDateRangeException;
@@ -66,7 +67,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomResponse editRoom(RoomRequest req, Long id) {
+    public RoomResponse editRoom(RoomPatchRequest req, Long id) {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RoomNotFoundException("Room not found!"));
         if (req.getRoomType() != null)

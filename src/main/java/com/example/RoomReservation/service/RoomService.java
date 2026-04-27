@@ -1,5 +1,6 @@
 package com.example.RoomReservation.service;
 
+import com.example.RoomReservation.dto.room.RoomPatchRequest;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 
@@ -18,5 +19,5 @@ public interface RoomService {
 
     void deleteRoom(Long id);
 
-    RoomResponse editRoom(RoomRequest req, Long id);
+    RoomResponse editRoom(RoomPatchRequest req, Long id);
 }

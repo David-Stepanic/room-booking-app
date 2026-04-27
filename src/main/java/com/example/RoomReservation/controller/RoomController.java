@@ -1,5 +1,6 @@
 package com.example.RoomReservation.controller;
 
+import com.example.RoomReservation.dto.room.RoomPatchRequest;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.service.RoomService;
@@ -52,7 +53,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
-    public RoomResponse editRoom(@RequestBody RoomRequest req,
+    public RoomResponse editRoom(@RequestBody RoomPatchRequest req,
                                  @PathVariable Long id) {
         return roomService.editRoom(req, id);
     }
