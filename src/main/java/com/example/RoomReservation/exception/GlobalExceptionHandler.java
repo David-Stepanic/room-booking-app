@@ -1,7 +1,9 @@
 package com.example.RoomReservation.exception;
 
+import com.example.RoomReservation.dto.error.ApiErrorResponse;
 import com.example.RoomReservation.exception.custom.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -107,5 +109,29 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(
                 new ErrorResponse(message, 400, LocalDateTime.now())
         );
+    }
+
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserExist(UserExistsException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                400,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiErrorResponse> handleBadCredentials(BadCredentialsException ex) {
+
+        ApiErrorResponse response = new ApiErrorResponse(
+                LocalDateTime.now(),
+                401,
+                "Unauthorized",
+                "Invalid username or password"
+        );
+
+        return ResponseEntity.status(401).body(response);
     }
 }

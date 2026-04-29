@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationRequest {
-    @NotNull(message = "Room is required")
+    @NotBlank(message = "Room is required")
     private Long roomId;
 
     @NotBlank(message = "Title is required")
     private String title;
 
-    @NotNull(message = "Start time is required")
+    @NotBlank(message = "Start time is required")
     private LocalDateTime startTime;
 
-    @NotNull(message = "End time is required")
+    @NotBlank(message = "End time is required")
     private LocalDateTime endTime;
 }
