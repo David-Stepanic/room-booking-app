@@ -129,7 +129,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 401,
                 "Unauthorized",
-                "Invalid username or password"
+                "Invalid email or password"
         );
 
         return ResponseEntity.status(401).body(response);

@@ -35,10 +35,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationResponse createReservation(ReservationRequest request, String username) {
+    public ReservationResponse createReservation(ReservationRequest request, String email) {
 
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found!"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found!"));
 
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RoomException("Room not found!"));

@@ -26,9 +26,9 @@ public class ReservationController {
             @Valid @RequestBody ReservationRequest request,
             Authentication authentication) {
 
-        String username = authentication.getName();
+        String email = authentication.getName();
 
-        return service.createReservation(request, username);
+        return service.createReservation(request, email);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

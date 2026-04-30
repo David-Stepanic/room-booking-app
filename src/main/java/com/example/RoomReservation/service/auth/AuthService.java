@@ -32,12 +32,14 @@ public class AuthService {
 
     public RegisterResponse register(RegisterRequest request) {
 
-        if (repo.existsByUsername(request.getUsername())) {
-            throw new UserExistsException("Username already exists");
+        if (repo.existsByEmail(request.getEmail())) {
+            throw new UserExistsException("Email already exists");
         }
 
         User user = new User();
-        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setRole(Role.USER);
 
@@ -51,7 +53,7 @@ public class AuthService {
         Authentication authentication =
                 authManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                request.getUsername(),
+                                request.getEmail(),
                                 request.getPassword()
                         )
                 );
@@ -60,9 +62,8 @@ public class AuthService {
                 (UserPrincipal) authentication.getPrincipal();
 
         User user = userDetails.user();
-        System.out.println(user.getRole() + " Testing user role within login flow!");
         LoginResponse response = mapper.toLoginResponse(user);
-        response.setToken(jwtService.generateToken(user.getUsername()));
+        response.setToken(jwtService.generateToken(user.getEmail()));
 
         return response;
     }

@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface ReservationMapper {
-    @Mapping(target = "username", source = "user.username")
+    @Mapping(target = "email", source = "user.email")
     @Mapping(target = "roomType", source = "room.roomType")
     ReservationResponse toResponse(Reservation reservation);
 }

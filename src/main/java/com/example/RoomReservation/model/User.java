@@ -13,7 +13,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -22,7 +24,7 @@ public class User {
     public String toString() {
         return "Users{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + email + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

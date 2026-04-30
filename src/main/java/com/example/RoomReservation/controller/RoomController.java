@@ -4,6 +4,7 @@ import com.example.RoomReservation.dto.room.RoomPatchRequest;
 import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.service.RoomService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class RoomController {
 
     @GetMapping("/available")
     public List<RoomResponse> getAvailableRooms(
-            @RequestParam LocalDateTime startTime,
-            @RequestParam LocalDateTime endTime) {
+            @Valid @RequestParam LocalDateTime startTime,
+            @Valid @RequestParam LocalDateTime endTime) {
         return roomService.getAvailableRooms(startTime, endTime);
     }
 
@@ -40,7 +41,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping()
-    public RoomResponse createRoom(@RequestBody RoomRequest room) {
+    public RoomResponse createRoom(@Valid @RequestBody RoomRequest room) {
         return roomService.createRoom(room);
     }
 
@@ -53,7 +54,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
-    public RoomResponse editRoom(@RequestBody RoomPatchRequest req,
+    public RoomResponse editRoom(@Valid @RequestBody RoomPatchRequest req,
                                  @PathVariable Long id) {
         return roomService.editRoom(req, id);
     }

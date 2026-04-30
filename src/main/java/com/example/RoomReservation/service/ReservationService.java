@@ -5,10 +5,16 @@ import com.example.RoomReservation.dto.reservation.ReservationResponse;
 import java.util.List;
 
 public interface ReservationService {
-    ReservationResponse createReservation(ReservationRequest request, String username);
+
+    ReservationResponse createReservation(ReservationRequest request, String email);
+
     List<ReservationResponse> getAllReservations();
+
     void confirmReservation(Long id);
+
     void cancelReservation(Long id);
+
     void declineReservation(Long id);
+
     void deleteReservation(Long id);
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Room {
     private Long id;
     private int roomNumber;
     private int capacity;
+    @Setter
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
@@ -60,7 +62,4 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
-    }
 }
