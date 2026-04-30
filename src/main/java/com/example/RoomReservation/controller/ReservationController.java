@@ -1,7 +1,10 @@
 package com.example.RoomReservation.controller;
 
+import com.example.RoomReservation.dto.reservation.DeclineRequest;
+import com.example.RoomReservation.dto.reservation.DeclineResponse;
 import com.example.RoomReservation.dto.reservation.ReservationRequest;
 import com.example.RoomReservation.dto.reservation.ReservationResponse;
+import com.example.RoomReservation.model.constans.ReservationStatus;
 import com.example.RoomReservation.service.ReservationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -45,23 +48,33 @@ public class ReservationController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/admin/confirm/{id}")
-    public ResponseEntity<?> confirmReservation(@PathVariable Long id) {
-        service.confirmReservation(id);
-        return ResponseEntity.ok("Reservation confirmed.");
+    public ResponseEntity<ReservationStatus> confirmReservation(@PathVariable Long id) {
+        ReservationResponse response = service.confirmReservation(id);
+
+        return ResponseEntity.ok(response.getReservationStatus());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/admin/cancel/{id}")
-    public ResponseEntity<?> cancelReservation(@PathVariable Long id) {
-        service.cancelReservation(id);
-        return ResponseEntity.ok("Reservation canceled.");
+    public ResponseEntity<ReservationStatus> cancelReservation(@PathVariable Long id) {
+        ReservationResponse response = service.cancelReservation(id);
+        return ResponseEntity.ok(response.getReservationStatus());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/admin/decline/{id}")
-    public ResponseEntity<?> declineReservation(@PathVariable Long id) {
-        service.declineReservation(id);
-        return ResponseEntity.ok("Reservation declined.");
+    public ResponseEntity<DeclineResponse> declineReservation(
+            @PathVariable Long id,
+            @RequestBody DeclineRequest request) {
+
+        ReservationResponse response = service.declineReservation(id, request.getReason());
+
+        DeclineResponse d = new DeclineResponse(
+                response.getReservationStatus(),
+                response.getDeclinedReason()
+        );
+
+        return ResponseEntity.ok(d);
     }
 
 }

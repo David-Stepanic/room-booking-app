@@ -8,6 +8,7 @@ import com.example.RoomReservation.exception.custom.UserExistsException;
 import com.example.RoomReservation.mapper.UserMapper;
 import com.example.RoomReservation.model.User;
 import com.example.RoomReservation.model.UserPrincipal;
+import com.example.RoomReservation.model.constans.Department;
 import com.example.RoomReservation.model.constans.Role;
 import com.example.RoomReservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,24 @@ public class AuthService {
             throw new UserExistsException("Email already exists");
         }
 
+        if (repo.existsByIndexNumber(request.getIndexNumber())) {
+            throw new UserExistsException("Index number already exists");
+        }
+
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setRole(Role.USER);
+        if (request.getDepartment() != null)
+            user.setDepartment(request.getDepartment());
+        if (request.getIndexNumber() != null)
+            user.setIndexNumber(request.getIndexNumber());
 
-        User saved = repo.save(user);
+        repo.save(user);
 
-        return mapper.toRegisterResponse(saved);
+        return mapper.toRegisterResponse(user);
     }
 
     public LoginResponse verify(LoginRequest request) {

@@ -10,11 +10,11 @@ public interface ReservationService {
 
     List<ReservationResponse> getAllReservations();
 
-    void confirmReservation(Long id);
+    ReservationResponse confirmReservation(Long id);
 
-    void cancelReservation(Long id);
+    ReservationResponse cancelReservation(Long id);
 
-    void declineReservation(Long id);
+    ReservationResponse declineReservation(Long id, String declineReason);
 
     void deleteReservation(Long id);
 }

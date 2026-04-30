@@ -50,14 +50,14 @@ public class Room {
 
     public void updateCapacity(int capacity) {
         if (capacity <= 0) {
-            throw new RoomException("Capacity must be greater than 0");
+            throw new RoomException("Capacity must be greater than 0!");
         }
         this.capacity = capacity;
     }
 
     public void updateRoomNumber(int roomNumber) {
         if (roomNumber <= 0) {
-            throw new RoomException("Room number must be positive");
+            throw new RoomException("Room number must be positive!");
         }
         this.roomNumber = roomNumber;
     }

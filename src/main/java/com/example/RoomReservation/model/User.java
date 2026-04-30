@@ -1,5 +1,6 @@
 package com.example.RoomReservation.model;
 
+import com.example.RoomReservation.model.constans.Department;
 import com.example.RoomReservation.model.constans.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,6 +20,9 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private String indexNumber;
+    @Enumerated(EnumType.STRING)
+    private Department department;
 
     @Override
     public String toString() {

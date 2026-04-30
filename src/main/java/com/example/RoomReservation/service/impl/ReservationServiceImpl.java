@@ -83,29 +83,42 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void confirmReservation(Long id) {
+    public ReservationResponse confirmReservation(Long id) {
         Reservation reservation = getReservationOrThrow(id);
+
         reservation.confirm();
+
         reservationRepository.save(reservation);
+
+        return mapper.toResponse(reservation);
     }
 
     @Override
-    public void cancelReservation(Long id) {
+    public ReservationResponse cancelReservation(Long id) {
         Reservation reservation = getReservationOrThrow(id);
+
         reservation.cancel();
+
         reservationRepository.save(reservation);
+
+        return mapper.toResponse(reservation);
     }
 
     @Override
-    public void declineReservation(Long id) {
+    public ReservationResponse declineReservation(Long id, String reason) {
         Reservation reservation = getReservationOrThrow(id);
-        reservation.decline("Not enough attendees");
+
+        reservation.decline(reason);
+
         reservationRepository.save(reservation);
+
+        return mapper.toResponse(reservation);
     }
 
     @Override
     public void deleteReservation(Long id) {
         Reservation reservation = getReservationOrThrow(id);
+
         reservationRepository.delete(reservation);
     }
 
