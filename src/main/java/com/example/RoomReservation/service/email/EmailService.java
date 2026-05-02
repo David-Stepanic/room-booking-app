@@ -1,0 +1,27 @@
+package com.example.RoomReservation.service.email;
+
+import com.example.RoomReservation.model.auth.VerificationToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmailService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendVerificationEmail(VerificationToken token) {
+
+        String link = "http://localhost:8080/api/auth/verify?token="
+                + token.getToken();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(token.getUser().getEmail());
+        message.setSubject("Verify your email");
+        message.setText("Click to verify: " + link);
+
+        mailSender.send(message);
+    }
+}

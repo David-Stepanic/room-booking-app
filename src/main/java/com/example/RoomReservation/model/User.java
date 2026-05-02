@@ -23,6 +23,7 @@ public class User {
     private String indexNumber;
     @Enumerated(EnumType.STRING)
     private Department department;
+    private boolean enabled;
 
     @Override
     public String toString() {

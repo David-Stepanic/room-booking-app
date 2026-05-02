@@ -1,7 +1,7 @@
 package com.example.RoomReservation.service.auth;
 
 import com.example.RoomReservation.model.User;
-import com.example.RoomReservation.model.UserPrincipal;
+import com.example.RoomReservation.model.auth.UserPrincipal;
 import com.example.RoomReservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

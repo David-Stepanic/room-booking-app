@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String path = request.getServletPath();
 
-        if (path.contains("/login") || path.contains("/register")) {
+        if (path.contains("/login") || path.contains("/register") || path.contains("/verify") || path.contains("/resend-verification") ) {
             filterChain.doFilter(request, response);
             return;
         }
