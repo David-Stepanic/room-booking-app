@@ -1,6 +1,8 @@
 package com.example.RoomReservation.controller;
 
 import com.example.RoomReservation.dto.user.PasswordRequest;
+import com.example.RoomReservation.dto.user.RegisterResponse;
+import com.example.RoomReservation.dto.user.UserPatchRequest;
 import com.example.RoomReservation.model.User;
 import com.example.RoomReservation.model.auth.UserPrincipal;
 import com.example.RoomReservation.service.UserService;
@@ -42,6 +44,12 @@ public class UserController {
         return ResponseEntity.ok("Password changed successfully!");
     }
 
+    @PatchMapping("/edit-profile")
+    public ResponseEntity<RegisterResponse> editUserProfile(
+            @AuthenticationPrincipal UserPrincipal user,
+            @Valid @RequestBody UserPatchRequest request) {
+        return ResponseEntity.ok(service.editUserProfile(user.user().getEmail(), request));
+    }
 
 
 }

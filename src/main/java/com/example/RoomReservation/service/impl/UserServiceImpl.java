@@ -1,7 +1,10 @@
 package com.example.RoomReservation.service.impl;
 
 import com.example.RoomReservation.dto.user.PasswordRequest;
+import com.example.RoomReservation.dto.user.RegisterResponse;
+import com.example.RoomReservation.dto.user.UserPatchRequest;
 import com.example.RoomReservation.exception.custom.ChangePasswordException;
+import com.example.RoomReservation.mapper.UserMapper;
 import com.example.RoomReservation.model.User;
 import com.example.RoomReservation.repository.UserRepository;
 import com.example.RoomReservation.service.UserService;
@@ -16,11 +19,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final UserMapper mapper;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     public List<User> getUsers() {
@@ -49,6 +53,36 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(encoder.encode(request.getNewPassword()));
+    }
+
+    @Override
+    public RegisterResponse editUserProfile(String email, UserPatchRequest request) {
+        User user = repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
+
+        if (request.getEmail() != null) {
+            user.setEmail(request.getEmail());
+        }
+
+        if (request.getFirstName() != null) {
+            user.setFirstName(request.getFirstName());
+        }
+
+        if (request.getLastName() != null) {
+            user.setLastName(request.getLastName());
+        }
+
+        if (request.getDepartment() != null) {
+            user.setDepartment(request.getDepartment());
+        }
+
+        if (request.getIndexNumber() != null) {
+            user.setIndexNumber(request.getIndexNumber());
+        }
+
+        repository.save(user);
+
+        return mapper.toRegisterResponse(user);
     }
 
 }

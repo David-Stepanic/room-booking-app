@@ -3,7 +3,9 @@ package com.example.RoomReservation.dto.user;
 import com.example.RoomReservation.model.constans.Department;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
 
+@Getter
 public class UserPatchRequest {
     @Email(message = "Invalid email format!")
     @Pattern(
