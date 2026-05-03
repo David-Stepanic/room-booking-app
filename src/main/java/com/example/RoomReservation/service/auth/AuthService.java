@@ -56,10 +56,6 @@ public class AuthService {
             throw new UserExistsException("Email already exists");
         }
 
-        if (repo.existsByIndexNumber(request.getIndexNumber()) && request.getIndexNumber() != null) {
-            throw new UserExistsException("Index number already exists");
-        }
-
         User user = new User();
         user.setEnabled(false);
         user.setEmail(request.getEmail());
@@ -69,8 +65,6 @@ public class AuthService {
         user.setRole(Role.USER);
         if (request.getDepartment() != null)
             user.setDepartment(request.getDepartment());
-        if (request.getIndexNumber() != null)
-            user.setIndexNumber(request.getIndexNumber());
 
         VerificationToken token = new VerificationToken(UUID.randomUUID().toString(), user, LocalDateTime.now().plusHours(1));
 

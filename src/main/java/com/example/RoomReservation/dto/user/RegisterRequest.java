@@ -2,7 +2,6 @@ package com.example.RoomReservation.dto.user;
 
 import com.example.RoomReservation.model.constans.Department;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -34,8 +33,6 @@ public class RegisterRequest {
             message = "Password must have at least 8 characters, one uppercase, one lowercase and one special character without whitespaces."
     )
     private String password;
-    @Pattern(regexp = "^\\d{3,4}/(20\\d{2})$", message = "Valid index number format is 3821/2025!")
-    private String indexNumber;
     private Department department;
 }
 

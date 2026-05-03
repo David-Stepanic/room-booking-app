@@ -76,10 +76,6 @@ public class UserServiceImpl implements UserService {
             user.setDepartment(request.getDepartment());
         }
 
-        if (request.getIndexNumber() != null) {
-            user.setIndexNumber(request.getIndexNumber());
-        }
-
         repository.save(user);
 
         return mapper.toRegisterResponse(user);

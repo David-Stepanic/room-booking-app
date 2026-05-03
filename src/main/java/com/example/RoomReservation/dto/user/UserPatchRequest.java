@@ -17,10 +17,5 @@ public class UserPatchRequest {
     private String firstName;
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters are allowed!")
     private String lastName;
-    @Pattern(
-            regexp = "^\\d{3,4}/(20\\d{2})$",
-            message = "Valid index number format is 3821/2025!"
-    )
-    private String indexNumber;
     private Department department;
 }
