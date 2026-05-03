@@ -1,19 +1,25 @@
 package com.example.RoomReservation.service.auth;
 
+import com.example.RoomReservation.dto.email.ForgotPasswordRequest;
+import com.example.RoomReservation.dto.email.ResetPasswordRequest;
 import com.example.RoomReservation.dto.user.LoginRequest;
 import com.example.RoomReservation.dto.user.LoginResponse;
 import com.example.RoomReservation.dto.user.RegisterRequest;
 import com.example.RoomReservation.dto.user.RegisterResponse;
+import com.example.RoomReservation.exception.custom.TokenException;
 import com.example.RoomReservation.exception.custom.UserExistsException;
 import com.example.RoomReservation.exception.custom.VerifyMailException;
 import com.example.RoomReservation.mapper.UserMapper;
 import com.example.RoomReservation.model.User;
+import com.example.RoomReservation.model.auth.PasswordResetToken;
 import com.example.RoomReservation.model.auth.UserPrincipal;
 import com.example.RoomReservation.model.auth.VerificationToken;
 import com.example.RoomReservation.model.constans.Role;
+import com.example.RoomReservation.repository.PasswordResetTokenRepository;
 import com.example.RoomReservation.repository.UserRepository;
 import com.example.RoomReservation.repository.VerificationTokenRepository;
 import com.example.RoomReservation.service.email.EmailService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,6 +41,8 @@ public class AuthService {
     private UserRepository repo;
     @Autowired
     private VerificationTokenRepository tokenRepository;
+    @Autowired
+    private PasswordResetTokenRepository resetRepo;
     @Autowired
     private JWTService jwtService;
     @Autowired
@@ -140,6 +148,44 @@ public class AuthService {
         tokenRepository.save(token);
 
         emailService.sendVerificationEmail(token);
+    }
+
+    public void forgotPassword(ForgotPasswordRequest request) {
+
+        User user = repo.findByEmail(request.email())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        resetRepo.deleteByUser(user);
+
+        String token = UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken = new PasswordResetToken(
+                token,
+                user,
+                LocalDateTime.now().plusMinutes(30)
+        );
+
+        resetRepo.save(resetToken);
+
+        emailService.sendResetPasswordEmail(user.getEmail(), token);
+    }
+
+    public void resetPassword(ResetPasswordRequest request) {
+
+        PasswordResetToken token = resetRepo.findByToken(request.token())
+                .orElseThrow(() -> new TokenException("Invalid token"));
+
+        if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new TokenException("Token expired");
+        }
+
+        User user = token.getUser();
+
+        user.setPassword(encoder.encode(request.newPassword()));
+
+        repo.save(user);
+
+        resetRepo.delete(token);
     }
 
 }

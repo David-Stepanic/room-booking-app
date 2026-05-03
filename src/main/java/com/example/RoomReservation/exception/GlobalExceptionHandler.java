@@ -148,4 +148,10 @@ public class GlobalExceptionHandler {
     public String handle(ChangePasswordException ex) {
         return ex.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(TokenException.class)
+    public String handle(TokenException ex) {
+        return ex.getMessage();
+    }
 }

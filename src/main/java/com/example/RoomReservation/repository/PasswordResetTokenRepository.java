@@ -1,17 +1,14 @@
 package com.example.RoomReservation.repository;
 
 import com.example.RoomReservation.model.User;
-import com.example.RoomReservation.model.auth.VerificationToken;
+import com.example.RoomReservation.model.auth.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface VerificationTokenRepository
-        extends JpaRepository<VerificationToken, Long> {
-
-    Optional<VerificationToken> findByToken(String token);
-
+public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
+    Optional<PasswordResetToken> findByToken(String token);
     void deleteByUser(User user);
 }
