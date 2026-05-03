@@ -29,6 +29,10 @@ public class RegisterRequest {
     @NotBlank(message = "Last name is required!")
     private String lastName;
     @NotBlank(message = "Password is required!")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)\\S{8,}$",
+            message = "Password must have at least 8 characters, one uppercase, one lowercase and one special character without whitespaces."
+    )
     private String password;
     @Pattern(regexp = "^\\d{3,4}/(20\\d{2})$", message = "Valid index number format is 3821/2025!")
     private String indexNumber;
