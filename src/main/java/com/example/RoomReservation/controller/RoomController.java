@@ -5,6 +5,7 @@ import com.example.RoomReservation.dto.room.RoomRequest;
 import com.example.RoomReservation.dto.room.RoomResponse;
 import com.example.RoomReservation.service.RoomService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,15 +42,15 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping()
-    public RoomResponse createRoom(@Valid @RequestBody RoomRequest room) {
-        return roomService.createRoom(room);
+    public ResponseEntity<RoomResponse> createRoom(@Valid @RequestBody RoomRequest room) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(roomService.createRoom(room));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRoom(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteRoom(@PathVariable Long id) {
         roomService.deleteRoom(id);
-        return ResponseEntity.ok("Room deleted successfully!");
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

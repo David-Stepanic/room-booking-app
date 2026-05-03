@@ -1,5 +1,6 @@
 package com.example.RoomReservation.service.impl;
 
+import com.example.RoomReservation.dto.reservation.DeclineRequest;
 import com.example.RoomReservation.dto.reservation.ReservationRequest;
 import com.example.RoomReservation.dto.reservation.ReservationResponse;
 import com.example.RoomReservation.exception.custom.ReservationException;
@@ -105,10 +106,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationResponse declineReservation(Long id, String reason) {
+    public ReservationResponse declineReservation(Long id, DeclineRequest request) {
         Reservation reservation = getReservationOrThrow(id);
 
-        reservation.decline(reason);
+        reservation.decline(request.getReason());
 
         reservationRepository.save(reservation);
 

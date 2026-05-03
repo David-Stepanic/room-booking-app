@@ -1,0 +1,24 @@
+package com.example.RoomReservation.dto.user;
+
+import com.example.RoomReservation.model.constans.Department;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+
+public class UserPatchRequest {
+    @Email(message = "Invalid email format!")
+    @Pattern(
+            regexp = "^[A-Za-z0-9+_.-]+@(gmail\\.com|outlook\\.com)$",
+            message = "Only gmail.com and outlook.com are allowed!"
+    )
+    private String email;
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters are allowed!")
+    private String firstName;
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters are allowed!")
+    private String lastName;
+    @Pattern(
+            regexp = "^\\d{3,4}/(20\\d{2})$",
+            message = "Valid index number format is 3821/2025!"
+    )
+    private String indexNumber;
+    private Department department;
+}

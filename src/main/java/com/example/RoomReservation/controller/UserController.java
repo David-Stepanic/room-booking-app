@@ -27,10 +27,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(
+    public ResponseEntity<Void> deleteUser(
             @PathVariable Long id) {
         service.deleteUser(id);
-        return ResponseEntity.ok("User deleted successfully!");
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/change-password")
