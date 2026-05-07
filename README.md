@@ -45,7 +45,8 @@ This application allows users to view available rooms, create reservations, and 
 
 1. Clone the repository
 2. Configure database in `application.properties`
-3. Run the application:
+3. Create database: 'room-reservations'
+4. Run the application:
 
 ```bash
 mvn spring-boot:run
