@@ -9,7 +9,7 @@ import com.example.RoomReservation.model.User;
 import com.example.RoomReservation.repository.UserRepository;
 import com.example.RoomReservation.service.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +19,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final PasswordEncoder encoder;
     private final UserMapper mapper;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, PasswordEncoder encoder) {
         this.repository = repository;
         this.mapper = mapper;
+        this.encoder = encoder;
     }
 
     public List<User> getUsers() {

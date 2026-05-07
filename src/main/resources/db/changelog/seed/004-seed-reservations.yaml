@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-seed-reservations
+      author: david.stepanic
+      changes:
+
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: title, value: ".NET Core API & T-SQL" }
+              - column: { name: purpose, value: "Backend development workshop focused on REST APIs and SQL Server integration" }
+              - column: { name: start_time, valueDate: "2026-05-05T09:00:00" }
+              - column: { name: end_time, valueDate: "2026-05-05T11:00:00" }
+              - column: { name: reservation_status, value: CONFIRMED }
+              - column: { name: created_at, valueDate: "2026-05-01T14:20:00" }
+              - column: { name: user_id, valueNumeric: "1" }
+              - column: { name: room_id, valueNumeric: "1" }
+
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: title, value: "Java & Spring Boot Lecture" }
+              - column: { name: purpose, value: "University lecture covering Spring Boot architecture and dependency injection" }
+              - column: { name: start_time, valueDate: "2026-05-06T12:30:00" }
+              - column: { name: end_time, valueDate: "2026-05-06T15:00:00" }
+              - column: { name: reservation_status, value: CONFIRMED }
+              - column: { name: created_at, valueDate: "2026-05-02T09:45:00" }
+              - column: { name: user_id, valueNumeric: "2" }
+              - column: { name: room_id, valueNumeric: "2" }
+
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: title, value: "Python Programming" }
+              - column: { name: purpose, value: "Practical coding session for data processing and automation scripts" }
+              - column: { name: start_time, valueDate: "2026-05-07T08:00:00" }
+              - column: { name: end_time, valueDate: "2026-05-07T10:30:00" }
+              - column: { name: reservation_status, value: PENDING }
+              - column: { name: created_at, valueDate: "2026-05-03T16:10:00" }
+              - column: { name: user_id, valueNumeric: "3" }
+              - column: { name: room_id, valueNumeric: "3" }
+
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: title, value: "GoLang Crash Course" }
+              - column: { name: purpose, value: "Introduction to concurrent programming and microservices in Go" }
+              - column: { name: start_time, valueDate: "2026-05-08T14:00:00" }
+              - column: { name: end_time, valueDate: "2026-05-08T17:00:00" }
+              - column: { name: reservation_status, value: DECLINED }
+              - column: { name: created_at, valueDate: "2026-05-04T11:30:00" }
+              - column: { name: user_id, valueNumeric: "4" }
+              - column: { name: room_id, valueNumeric: "4" }
+
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: title, value: "React.js Crash Course" }
+              - column: { name: purpose, value: "Frontend training focused on React hooks, routing, and component architecture" }
+              - column: { name: start_time, valueDate: "2026-05-09T18:00:00" }
+              - column: { name: end_time, valueDate: "2026-05-09T20:00:00" }
+              - column: { name: reservation_status, value: CONFIRMED }
+              - column: { name: created_at, valueDate: "2026-05-05T08:15:00" }
+              - column: { name: user_id, valueNumeric: "2" }
+              - column: { name: room_id, valueNumeric: "3" }

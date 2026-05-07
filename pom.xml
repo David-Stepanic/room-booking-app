@@ -69,6 +69,12 @@
 			<artifactId>postgresql</artifactId>
 		</dependency>
 
+		<!-- LIQUIBASE -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+
 		<!-- VALIDATION -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

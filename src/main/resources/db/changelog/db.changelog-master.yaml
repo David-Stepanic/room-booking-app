@@ -1,0 +1,23 @@
+databaseChangeLog:
+
+  # CHANGES
+
+  - include:
+      file: db/changelog/changes/001-create-users.yaml
+  - include:
+      file: db/changelog/changes/002-create-rooms.yaml
+  - include:
+      file: db/changelog/changes/003-create-reservations.yaml
+  - include:
+      file: db/changelog/changes/004-create-tokens.yaml
+
+  # SEED
+
+  - include:
+      file: db/changelog/seed/001-seed-admin.yaml
+  - include:
+      file: db/changelog/seed/002-seed-users.yaml
+  - include:
+      file: db/changelog/seed/003-seed-rooms.yaml
+  - include:
+      file: db/changelog/seed/004-seed-reservations.yaml

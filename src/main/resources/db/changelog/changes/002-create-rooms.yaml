@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-rooms
+      author: david.stepanic
+      changes:
+        - createTable:
+            tableName: room
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: room_number
+                  type: INT
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: capacity
+                  type: INT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: room_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+      rollback:
+        - dropTable:
+            tableName: room

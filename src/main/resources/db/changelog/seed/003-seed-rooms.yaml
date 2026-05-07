@@ -1,0 +1,39 @@
+databaseChangeLog:
+- changeSet:
+        id: 003-seed-rooms
+        author: david.stepanic
+        changes:
+          - insert:
+              tableName: room
+              columns:
+                - column: { name: room_number, valueNumeric: "101" }
+                - column: { name: capacity, valueNumeric: "20" }
+                - column: { name: room_type, value: COMPUTER_CENTER }
+
+          - insert:
+              tableName: room
+              columns:
+                - column: { name: room_number, valueNumeric: "102" }
+                - column: { name: capacity, valueNumeric: "25" }
+                - column: { name: room_type, value: TEACHING_ROOM }
+
+          - insert:
+              tableName: room
+              columns:
+                - column: { name: room_number, valueNumeric: "115" }
+                - column: { name: capacity, valueNumeric: "15" }
+                - column: { name: room_type, value: COMPUTER_CENTER }
+
+          - insert:
+              tableName: room
+              columns:
+                - column: { name: room_number, valueNumeric: "205" }
+                - column: { name: capacity, valueNumeric: "100" }
+                - column: { name: room_type, value: AMPHITHEATER }
+
+          - insert:
+              tableName: room
+              columns:
+                - column: { name: room_number, valueNumeric: "335" }
+                - column: { name: capacity, valueNumeric: "50" }
+                - column: { name: room_type, value: AMPHITHEATER }
