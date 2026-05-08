@@ -23,11 +23,30 @@ This application allows users to view available rooms, create reservations, and 
 - Maven
 - Lombok
 
+## 🗄 Database
+
+- PostgreSQL database: `room-reservations`
+- Schema managed via Liquibase migrations
+- Seed data included for testing
+
+---
+
+## 👤 Test Users
+
+- Email: user@test.com
+- Password: user
+
+### 🔐 Admin
+
+- Email: admin@test.com
+- Password: admin
+
 ## ▶️ How to Run
 
 1. Clone the repository
 2. Configure database in `application.properties`
-3. Run the application:
+3. Create database: 'room-reservations'
+4. Run the application:
 
 ```bash
 mvn spring-boot:run
