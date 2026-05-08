@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+        id: 002-seed-users
+        author: david.stepanic
+        changes:
+          - insert:
+              tableName: users
+              columns:
+                - column: { name: email, value: user@test.com }
+                - column: { name: password, value: user }
+                - column: { name: first_name, value: Petar }
+                - column: { name: last_name, value: Petrovic }
+                - column: { name: role, value: USER }
+                - column: { name: department, value: SOFTWARE_ENGINEERING }
+                - column: { name: enabled, valueBoolean: "true" }
+
+          - insert:
+              tableName: users
+              columns:
+                - column: { name: email, value: jovan@gmail.com }
+                - column: { name: password, value: Jovan123! }
+                - column: { name: first_name, value: Jovan }
+                - column: { name: last_name, value: Jovanovic }
+                - column: { name: role, value: USER }
+                - column: { name: department, value: SOFTWARE_ENGINEERING }
+                - column: { name: enabled, valueBoolean: "true" }
+
+          - insert:
+              tableName: users
+              columns:
+                - column: { name: email, value: marko@gmail.com }
+                - column: { name: password, value: Marko123! }
+                - column: { name: first_name, value: Marko }
+                - column: { name: last_name, value: Markovic }
+                - column: { name: role, value: USER }
+
+          - insert:
+              tableName: users
+              columns:
+                - column: { name: email, value: milica@gmail.com }
+                - column: { name: password, value: Milica123! }
+                - column: { name: first_name, value: Milica }
+                - column: { name: last_name, value: Jovanovic }
+                - column: { name: role, value: USER }
+
+          - insert:
+              tableName: users
+              columns:
+                - column: { name: email, value: nikola@gmail.com }
+                - column: { name: password, value: Nikola123! }
+                - column: { name: first_name, value: Nikola }
+                - column: { name: last_name, value: Nikolic }
+                - column: { name: role, value: USER }

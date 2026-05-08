@@ -1,4 +1,4 @@
-# ===== Maven =====
+# maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -7,14 +7,14 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 
-# ===== Java =====
+# java
 *.class
 
-# ===== Logs =====
+# logs
 *.log
 logs/
 
-# ===== IDE =====
+# ide
 .idea/
 *.iml
 .vscode/
@@ -22,19 +22,42 @@ logs/
 .project
 .settings/
 
-# ===== OS =====
+# os
 .DS_Store
 Thumbs.db
 
-# ===== Spring Boot =====
+# spring boot
 application.properties
 application.yml
 
-# ===== Env files (secrets) =====
 .env
-
-# ===== Build outputs =====
 out/
-
-# ===== Temporary files =====
 *.tmp
+
+# Frontend
+
+# Node dependencies
+node_modules/
+
+# Build output (Vite / React)
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files (frontend)
+frontend.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS / frontend tooling
+.DS_Store

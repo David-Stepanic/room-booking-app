@@ -1,0 +1,28 @@
+package com.david.RoomReservation.dto.reservation;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationRequest {
+    @NotNull(message = "Room is required!")
+    private Long roomId;
+
+    @NotBlank(message = "Title is required!")
+    private String title;
+
+    @NotNull(message = "Start time is required!")
+    private LocalDateTime startTime;
+
+    @NotNull(message = "End time is required!")
+    private LocalDateTime endTime;
+}
