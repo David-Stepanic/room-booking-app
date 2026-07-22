@@ -106,6 +106,21 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public ReservationResponse cancelOwnReservation(Long id, String email) {
+        Reservation reservation = getReservationOrThrow(id);
+
+        if (!reservation.getUser().getEmail().equals(email)) {
+            throw new ReservationException("You can only cancel your own reservations!");
+        }
+
+        reservation.cancel();
+
+        reservationRepository.save(reservation);
+
+        return mapper.toResponse(reservation);
+    }
+
+    @Override
     public ReservationResponse declineReservation(Long id, DeclineRequest request) {
         Reservation reservation = getReservationOrThrow(id);
 

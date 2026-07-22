@@ -1,8 +1,6 @@
 package com.david.RoomReservation.controller;
 
 import com.david.RoomReservation.dto.user.PasswordRequest;
-import com.david.RoomReservation.dto.user.RegisterResponse;
-import com.david.RoomReservation.dto.user.UserPatchRequest;
 import com.david.RoomReservation.model.User;
 import com.david.RoomReservation.model.auth.UserPrincipal;
 import com.david.RoomReservation.service.UserService;
@@ -43,13 +41,5 @@ public class UserController {
         service.changePassword(user.user().getEmail(), request);
         return ResponseEntity.ok("Password changed successfully!");
     }
-
-    @PatchMapping("/edit-profile")
-    public ResponseEntity<RegisterResponse> editUserProfile(
-            @AuthenticationPrincipal UserPrincipal user,
-            @Valid @RequestBody UserPatchRequest request) {
-        return ResponseEntity.ok(service.editUserProfile(user.user().getEmail(), request));
-    }
-
 
 }

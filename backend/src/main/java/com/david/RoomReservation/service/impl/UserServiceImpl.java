@@ -1,8 +1,6 @@
 package com.david.RoomReservation.service.impl;
 
 import com.david.RoomReservation.dto.user.PasswordRequest;
-import com.david.RoomReservation.dto.user.RegisterResponse;
-import com.david.RoomReservation.dto.user.UserPatchRequest;
 import com.david.RoomReservation.exception.custom.ChangePasswordException;
 import com.david.RoomReservation.mapper.UserMapper;
 import com.david.RoomReservation.model.User;
@@ -54,32 +52,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(encoder.encode(request.getNewPassword()));
-    }
-
-    @Override
-    public RegisterResponse editUserProfile(String email, UserPatchRequest request) {
-        User user = repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
-
-        if (request.getEmail() != null) {
-            user.setEmail(request.getEmail());
-        }
-
-        if (request.getFirstName() != null) {
-            user.setFirstName(request.getFirstName());
-        }
-
-        if (request.getLastName() != null) {
-            user.setLastName(request.getLastName());
-        }
-
-        if (request.getDepartment() != null) {
-            user.setDepartment(request.getDepartment());
-        }
-
-        repository.save(user);
-
-        return mapper.toRegisterResponse(user);
     }
 
 }

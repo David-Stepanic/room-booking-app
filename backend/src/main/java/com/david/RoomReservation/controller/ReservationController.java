@@ -5,6 +5,7 @@ import com.david.RoomReservation.dto.reservation.ReservationRequest;
 import com.david.RoomReservation.dto.reservation.ReservationResponse;
 import com.david.RoomReservation.service.ReservationService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,6 +59,15 @@ public class ReservationController {
     public ResponseEntity<ReservationResponse> cancelReservation(@PathVariable Long id) {
         ReservationResponse response = service.cancelReservation(id);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/cancel/{id}")
+    public ResponseEntity<ReservationResponse> cancelOwnReservation(
+            @PathVariable Long id,
+            Authentication authentication) {
+
+        String email = authentication.getName();
+        return ResponseEntity.ok(service.cancelOwnReservation(id, email));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

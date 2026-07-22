@@ -15,7 +15,10 @@ public interface ReservationService {
 
     ReservationResponse cancelReservation(Long id);
 
+    ReservationResponse cancelOwnReservation(Long id, String email);
+
     ReservationResponse declineReservation(Long id, DeclineRequest request);
 
     void deleteReservation(Long id);
+
 }
