@@ -79,22 +79,20 @@ public class AuthService {
     public void verifyEmail(String tokenValue) {
 
         VerificationToken token = tokenRepository.findByToken(tokenValue)
-                .orElseThrow(() -> new VerifyMailException("Invalid or expired verification link"));
+                .orElseThrow(() -> new VerifyMailException("Invalid or expired verification link", "INVALID_TOKEN"));
 
         if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new VerifyMailException("Token expired");
+            throw new VerifyMailException("Token expired", "TOKEN_EXPIRED");
         }
 
         User user = token.getUser();
 
         if (user.isEnabled()) {
-            throw new VerifyMailException("Account already verified");
+            throw new VerifyMailException("Account already verified", "ALREADY_VERIFIED");
         }
 
         user.setEnabled(true);
-
         repo.save(user);
-        tokenRepository.deleteById(token.getId());
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -113,7 +111,7 @@ public class AuthService {
         User user = userDetails.user();
 
         if (!user.isEnabled()) {
-            throw new VerifyMailException("Verify your email first");
+            throw new VerifyMailException("Verify your email first", "NOT_VERIFIED");
         }
         LoginResponse response = mapper.toLoginResponse(user);
         response.setToken(jwtService.generateToken(user.getEmail()));
@@ -125,10 +123,10 @@ public class AuthService {
     public void resendVerificationEmail(String email) {
 
         User user = repo.findByEmail(email)
-                .orElseThrow(() -> new VerifyMailException("User not found"));
+                .orElseThrow(() -> new VerifyMailException("User not found", "USER_NOT_FOUND"));
 
         if (user.isEnabled()) {
-            throw new VerifyMailException("User already verified");
+            throw new VerifyMailException("User already verified", "ALREADY_VERIFIED");
         }
 
         tokenRepository.deleteByUser(user);
@@ -144,6 +142,7 @@ public class AuthService {
         emailService.sendVerificationEmail(token);
     }
 
+    @Transactional
     public void forgotPassword(ForgotPasswordRequest request) {
 
         User user = repo.findByEmail(request.email())

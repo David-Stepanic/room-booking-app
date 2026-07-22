@@ -2,7 +2,6 @@ package com.david.RoomReservation.exception;
 
 import com.david.RoomReservation.dto.error.ApiErrorResponse;
 import com.david.RoomReservation.exception.custom.*;
-import com.david.RoomReservation.exception.custom.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -138,10 +139,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(response);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(VerifyMailException.class)
-    public String handle(VerifyMailException ex) {
-        return ex.getMessage();
+    public ResponseEntity<Map<String, String>> handle(VerifyMailException ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        body.put("code", ex.getCode());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
