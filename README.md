@@ -25,7 +25,7 @@ This application allows users to view available rooms, create reservations, and 
 
 ## 🗄 Database
 
-- PostgreSQL database: `room-reservations`
+- PostgreSQL database: `rooms`
 - Schema managed via Liquibase migrations
 - Seed data included for testing
 
