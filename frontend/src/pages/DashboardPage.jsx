@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import RoomBrowser from '../components/rooms/RoomBrowser.jsx';
 import MyReservations from '../components/reservations/MyReservations.jsx';
 import ChangePasswordModal from '../components/dashboard/ChangePasswordModal.jsx';
+import AdminPanel from '../components/admin/AdminPanel';
 import '../styles/dashboard.css';
 
 const NAV_ITEMS = [
@@ -43,10 +44,23 @@ export default function DashboardPage() {
                                 {item.label}
                             </button>
                         ))}
+
+                        {isAdmin && (
+                            <>
+                                <div className="dash-nav-section-label">Admin</div>
+                                <button
+                                    type="button"
+                                    className={`dash-nav-item ${tab === 'admin' ? 'is-active' : ''}`}
+                                    onClick={() => setTab('admin')}
+                                >
+                                    Manage workspace
+                                </button>
+                            </>
+                        )}
                     </nav>
                 </div>
 
-                <div className="dash=sidebar-footer">
+                <div className="dash-sidebar-footer">
                     <div className="dash-user-card">
                         <span className="dash-user-avatar">{initials}</span>
                         <div className="dash-user-meta">
@@ -70,6 +84,7 @@ export default function DashboardPage() {
             <main className="dash-main">
                 {tab === 'browse' && <RoomBrowser />}
                 {tab === 'mine' && <MyReservations />}
+                {tab === 'admin' && isAdmin && <AdminPanel />}
             </main>
 
             {showChangePassword && (

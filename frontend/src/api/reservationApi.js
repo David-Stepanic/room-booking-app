@@ -12,5 +12,5 @@ export const cancelOwnReservation = (id) => axiosClient.patch(`/reservations/can
 
 export const declineReservation = (id, data) => axiosClient.patch(`/reservations/admin/decline/${id}`, data);
 
-export const deleteReservation = (id) => axiosClient.delete(`/reservations/admin/delete/${id}`);
+export const deleteReservation = (id) => axiosClient.delete(`/reservations/admin/${id}`);
 

@@ -18,11 +18,13 @@ import java.time.LocalDateTime;
 public class ReservationResponse {
     private Long id;
     private String email;
+    private String title;
     private String purpose;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private ReservationStatus reservationStatus;
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
+    private Integer roomNumber;
     private String declinedReason;
 }
