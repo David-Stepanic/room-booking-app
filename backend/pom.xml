@@ -20,6 +20,7 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<sonar.organization>david00ks</sonar.organization>
 	</properties>
 
 	<dependencies>
