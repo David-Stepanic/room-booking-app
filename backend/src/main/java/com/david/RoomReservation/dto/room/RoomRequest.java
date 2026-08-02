@@ -3,8 +3,10 @@ package com.david.RoomReservation.dto.room;
 import com.david.RoomReservation.model.constans.RoomType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public class RoomRequest {
 
