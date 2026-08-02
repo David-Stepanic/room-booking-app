@@ -24,6 +24,19 @@ public class User {
     private Department department;
     private boolean enabled;
 
+    public User() {
+    }
+
+    public User(String email, String firstName, String lastName, String password, Role role, Department department, boolean enabled) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.role = role;
+        this.department = department;
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "Users{" +

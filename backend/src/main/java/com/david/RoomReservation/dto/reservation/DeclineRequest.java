@@ -10,4 +10,11 @@ public class DeclineRequest {
 
     @NotBlank(message = "Decline reason is required!")
     private String reason;
+
+    public DeclineRequest() {
+    }
+
+    public DeclineRequest(String reason) {
+        this.reason = reason;
+    }
 }

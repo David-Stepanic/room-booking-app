@@ -48,6 +48,13 @@ public class Room {
                 '}';
     }
 
+    public Room(int roomNumber, int capacity, RoomType roomType, List<Reservation> reservations) {
+        this.roomNumber = roomNumber;
+        this.capacity = capacity;
+        this.roomType = roomType;
+        this.reservations = reservations;
+    }
+
     public void updateCapacity(int capacity) {
         if (capacity <= 0) {
             throw new RoomException("Capacity must be greater than 0!");

@@ -41,6 +41,10 @@ public class Reservation {
     @ManyToOne
     private Room room;
 
+    public Reservation(Long id) {
+        this.id = id;
+    }
+
     public Reservation() {
         this.reservationStatus = ReservationStatus.PENDING;
         this.createdAt = LocalDateTime.now();
