@@ -21,14 +21,14 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
-    ApplicationContext context;
+    public ApplicationContext context;
     @Autowired
-    private JWTService jwtService;
+    public JWTService jwtService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    public void doFilterInternal(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 FilterChain filterChain)
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
