@@ -2,8 +2,12 @@ package com.david.RoomReservation.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+@AllArgsConstructor
+@Setter
 @Getter
 public class PasswordRequest {
     @NotBlank(message = "Old password is required!")
