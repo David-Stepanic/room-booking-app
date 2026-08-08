@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RoomNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleRoomNotFound(RoomException ex) {
+    public ResponseEntity<ErrorResponse> handleRoomNotFound(RoomNotFoundException ex) {
 
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
@@ -90,7 +90,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ReservationNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleReservationNotFound(ReservationException ex) {
+    public ResponseEntity<ErrorResponse> handleReservationNotFound(ReservationNotFoundException ex) {
 
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
